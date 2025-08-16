@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import { CounterProvider } from '@/context/counterContext';
+
+import SignUp from './components/SignUp';
 import ContextTester from './components/ContextTester';
+
+import './App.css';
 
 function App() {
   const [mensaje, setMensaje] = useState('');
@@ -13,21 +17,11 @@ function App() {
 
   return (
     <CounterProvider>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: '100%',
-          border: '2px solid gray',
-          borderRadius: '10px',
-          padding: '10px',
-        }}
-      >
+      <div className="app-container">
         <h1>Frontend funcionando 🚀</h1>
-        <p>{mensaje}</p>
+        <h2>{mensaje}</h2>
         <ContextTester />
+        <SignUp />
       </div>
     </CounterProvider>
   );
