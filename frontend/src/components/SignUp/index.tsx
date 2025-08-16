@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import './index.css';
+
 const SignUp = () => {
   const [form, setForm] = useState({
     email: '',
@@ -70,41 +72,56 @@ const SignUp = () => {
   };
 
   return (
-    <div>
-      <h1>SignUp</h1>
-      <form onSubmit={onSubmit}>
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          onChange={handleChange}
-        />
-        {error.length > 0 &&
-          error.map((error, index) => (
-            <p key={index} style={{ color: 'red' }}>
+    <form onSubmit={onSubmit} className="form-container">
+      <h2>SignUp</h2>
+      <input
+        id="email"
+        data-testid="email"
+        type="text"
+        name="email"
+        placeholder="Email"
+        onChange={handleChange}
+        formNoValidate
+        value={form.email}
+      />
+      <input
+        id="password"
+        data-testid="password"
+        type="password"
+        name="password"
+        placeholder="Password"
+        onChange={handleChange}
+        formNoValidate
+        value={form.password}
+      />
+      {error.length > 0 && (
+        <div className="error-container">
+          {error.map((error, index) => (
+            <p
+              key={index}
+              style={{
+                color: 'red',
+                margin: '0',
+              }}
+            >
               {error}
             </p>
           ))}
-        {success && <p style={{ color: 'green' }}>{success}</p>}
-        <button
-          style={{
-            backgroundColor: 'blue',
-            color: 'white',
-            padding: '10px',
-            borderRadius: '10px',
-          }}
-          type="submit"
-        >
-          Submit
-        </button>
-      </form>
-    </div>
+        </div>
+      )}
+      {success && <p style={{ color: 'green' }}>{success}</p>}
+      <button
+        style={{
+          backgroundColor: 'blue',
+          color: 'white',
+          padding: '10px',
+          borderRadius: '10px',
+        }}
+        type="submit"
+      >
+        Submit
+      </button>
+    </form>
   );
 };
 
