@@ -23,6 +23,7 @@ const ContextTester = () => {
             color: 'white',
             padding: '10px',
             borderRadius: '10px',
+            marginBottom: '10px',
           }}
         >
           Increase Count

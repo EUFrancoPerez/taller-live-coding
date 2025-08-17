@@ -1,6 +1,8 @@
 import { useEffect, useState, lazy } from 'react';
 import { CounterProvider } from '@/context/counterContext';
 import LazyWrapper from './components/LazyWrapper';
+import UserManagement from './components/UserManagement';
+import Counter from './components/Counter';
 
 // Lazy load components
 const SignUp = lazy(() => import('./components/SignUp'));
@@ -22,12 +24,22 @@ function App() {
       <div className="app-container">
         <h1>Frontend funcionando 🚀</h1>
         <h2>{mensaje}</h2>
-        <LazyWrapper>
-          <ContextTester />
-        </LazyWrapper>
-        <LazyWrapper>
-          <SignUp />
-        </LazyWrapper>
+
+        <div className="redux-demo-section">
+          <h2>Redux Demo Components</h2>
+          <Counter />
+          <UserManagement />
+        </div>
+
+        <div className="context-demo-section">
+          <h2>Context Demo Components</h2>
+          <LazyWrapper>
+            <ContextTester />
+          </LazyWrapper>
+          <LazyWrapper>
+            <SignUp />
+          </LazyWrapper>
+        </div>
       </div>
     </CounterProvider>
   );

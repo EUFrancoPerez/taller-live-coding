@@ -1,0 +1,143 @@
+.counter {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.counter h2 {
+  color: #2c3e50;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.counter-display {
+  margin: 2rem 0;
+  padding: 2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+}
+
+.counter-value {
+  font-size: 4rem;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.counter-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.counter-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.counter-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 80px;
+}
+
+.counter-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.counter-btn.increment {
+  background-color: #48bb78;
+  color: white;
+}
+
+.counter-btn.increment:hover {
+  background-color: #38a169;
+}
+
+.counter-btn.decrement {
+  background-color: #f56565;
+  color: white;
+}
+
+.counter-btn.decrement:hover {
+  background-color: #e53e3e;
+}
+
+.counter-btn.increment-amount {
+  background-color: #4299e1;
+  color: white;
+}
+
+.counter-btn.increment-amount:hover {
+  background-color: #3182ce;
+}
+
+.counter-btn.reset {
+  background-color: #ed8936;
+  color: white;
+}
+
+.counter-btn.reset:hover {
+  background-color: #dd6b20;
+}
+
+.counter-info {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e1e5e9;
+  text-align: left;
+}
+
+.counter-info p {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.counter-info ul {
+  color: #4a5568;
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.counter-info li {
+  margin-bottom: 0.5rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .counter {
+    padding: 1rem;
+  }
+
+  .counter-value {
+    font-size: 3rem;
+  }
+
+  .counter-controls,
+  .counter-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .counter-btn {
+    width: 200px;
+  }
+}
