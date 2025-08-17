@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy } from 'react';
 import { CounterProvider } from '@/context/counterContext';
+import LazyWrapper from './components/LazyWrapper';
 
-import SignUp from './components/SignUp';
-import ContextTester from './components/ContextTester';
+// Lazy load components
+const SignUp = lazy(() => import('./components/SignUp'));
+const ContextTester = lazy(() => import('./components/ContextTester'));
 
 import './App.css';
 
@@ -20,8 +22,12 @@ function App() {
       <div className="app-container">
         <h1>Frontend funcionando 🚀</h1>
         <h2>{mensaje}</h2>
-        <ContextTester />
-        <SignUp />
+        <LazyWrapper>
+          <ContextTester />
+        </LazyWrapper>
+        <LazyWrapper>
+          <SignUp />
+        </LazyWrapper>
       </div>
     </CounterProvider>
   );

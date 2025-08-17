@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 
 import './index.css';
 
@@ -11,11 +11,21 @@ const SignUp = () => {
   const [error, setError] = useState<string[]>([]);
   const [success, setSuccess] = useState('');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  // useRef for email input focus
+  const emailInputRef = useRef<HTMLInputElement>(null);
 
-  const validateEmail = (email: string) => {
+  // Focus email input when component mounts
+  useEffect(() => {
+    emailInputRef.current?.focus();
+  }, []);
+
+  // Memoize the handleChange function
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  }, []);
+
+  // Memoize validation functions
+  const validateEmail = useCallback((email: string) => {
     const errors = [];
     if (email === '') {
       errors.push('Email is required');
@@ -34,55 +44,66 @@ const SignUp = () => {
       errors.push('Email have a valid domain');
     }
     return errors;
-  };
+  }, []);
 
-  const validatePassword = (password: string) => {
+  const validatePassword = useCallback((password: string) => {
     const errors = [];
     if (password === '') {
       errors.push('Password is required');
     }
-    if (form.password.length < 8) {
+    if (password.length < 8) {
       errors.push('Password must be at least 8 characters long');
     }
-    if (!form.password.match(/\d/)) {
+    if (!password.match(/\d/)) {
       errors.push('Password must contain at least one number');
     }
-    if (!form.password.match(/\W/)) {
+    if (!password.match(/\W/)) {
       errors.push('Password must contain at least one special character');
     }
     return errors;
-  };
+  }, []);
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError([]);
-    setSuccess('');
+  // Memoize the onSubmit function
+  const onSubmit = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      setError([]);
+      setSuccess('');
 
-    let errors: string[] = [];
-    errors = errors.concat(validateEmail(form.email));
-    errors = errors.concat(validatePassword(form.password));
+      let errors: string[] = [];
+      errors = errors.concat(validateEmail(form.email));
+      errors = errors.concat(validatePassword(form.password));
 
-    if (errors.length > 0) {
-      setError(errors);
-      return;
-    }
+      if (errors.length > 0) {
+        setError(errors);
+        return;
+      }
 
-    setSuccess('SignUp successful');
-    setForm({ email: '', password: '' });
-  };
+      setSuccess('SignUp successful');
+      setForm({ email: '', password: '' });
+
+      // Focus back to email input after successful submission
+      setTimeout(() => {
+        emailInputRef.current?.focus();
+      }, 100);
+    },
+    [form.email, form.password, validateEmail, validatePassword]
+  );
+
+  // Memoize expensive computations
+  const hasErrors = useMemo(() => error.length > 0, [error.length]);
 
   return (
     <form onSubmit={onSubmit} className="form-container">
       <h2>SignUp</h2>
       <input
+        ref={emailInputRef}
         id="email"
         data-testid="email"
-        type="text"
+        type="email"
         name="email"
         placeholder="Email"
         onChange={handleChange}
-        formNoValidate
-        value={form.email}
       />
       <input
         id="password"
@@ -91,10 +112,8 @@ const SignUp = () => {
         name="password"
         placeholder="Password"
         onChange={handleChange}
-        formNoValidate
-        value={form.password}
       />
-      {error.length > 0 && (
+      {hasErrors && (
         <div className="error-container">
           {error.map((error, index) => (
             <p

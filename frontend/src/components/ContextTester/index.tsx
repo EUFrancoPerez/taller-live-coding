@@ -1,8 +1,13 @@
-import { useContext } from 'react';
+import { useContext, useCallback } from 'react';
 import { CounterContext } from '@/context/counterContext';
 
 const ContextTester = () => {
   const { count, setCount } = useContext(CounterContext);
+
+  // Memoize the click handler
+  const handleIncreaseCount = useCallback(() => {
+    setCount(count + 1);
+  }, [count, setCount]);
 
   return (
     <div>
@@ -12,7 +17,7 @@ const ContextTester = () => {
       <div className="text-center">
         <h3 className="text-2xl">Count is: {count}</h3>
         <button
-          onClick={() => setCount(count + 1)}
+          onClick={handleIncreaseCount}
           style={{
             backgroundColor: 'pink',
             color: 'white',
