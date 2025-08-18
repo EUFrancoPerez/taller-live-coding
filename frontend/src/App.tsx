@@ -1,6 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy } from 'react';
 import { CounterProvider } from '@/context/counterContext';
-import ContextTester from './components/ContextTester';
+import MonetaryTransactionForm from './components/MonetaryTransactionForm';
+
+// Lazy load components
+const SignUp = lazy(() => import('./components/SignUp'));
+const ContextTester = lazy(() => import('./components/ContextTester'));
+
+import './App.css';
 
 function App() {
   const [mensaje, setMensaje] = useState('');
@@ -13,21 +19,9 @@ function App() {
 
   return (
     <CounterProvider>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: '100%',
-          border: '2px solid gray',
-          borderRadius: '10px',
-          padding: '10px',
-        }}
-      >
-        <h1>Frontend funcionando 🚀</h1>
-        <p>{mensaje}</p>
-        <ContextTester />
+      <div className="app-container">
+        <h1>Taller Testing 🚀</h1>
+        <MonetaryTransactionForm />
       </div>
     </CounterProvider>
   );

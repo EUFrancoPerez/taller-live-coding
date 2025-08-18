@@ -1,20 +1,30 @@
-import { useContext } from 'react';
+import { useContext, useCallback } from 'react';
 import { CounterContext } from '@/context/counterContext';
 
-const GrandChildComponent = () => {
+const ContextTester = () => {
   const { count, setCount } = useContext(CounterContext);
+
+  // Memoize the click handler
+  const handleIncreaseCount = useCallback(() => {
+    setCount(count + 1);
+  }, [count, setCount]);
 
   return (
     <div>
       <div className="text-center mt-3">
-        <h2 className="text-3xl">Grandchild Component</h2>
-        <small>Using the count state</small>
+        <h2 className="text-3xl">Context Tester Component</h2>
       </div>
       <div className="text-center">
         <h3 className="text-2xl">Count is: {count}</h3>
         <button
-          onClick={() => setCount(count + 1)}
-          className="bg-pink-600 p-2 rounded text-white"
+          onClick={handleIncreaseCount}
+          style={{
+            backgroundColor: 'pink',
+            color: 'white',
+            padding: '10px',
+            borderRadius: '10px',
+            marginBottom: '10px',
+          }}
         >
           Increase Count
         </button>
@@ -23,4 +33,4 @@ const GrandChildComponent = () => {
   );
 };
 
-export default GrandChildComponent;
+export default ContextTester;
