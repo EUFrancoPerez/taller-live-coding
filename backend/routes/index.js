@@ -1,10 +1,12 @@
 const express = require('express');
 const userRoutes = require('./userRoutes');
+const monetaryTransactionRoutes = require('./monetaryTransactionRoutes');
 
 const router = express.Router();
 
 // Mount routes
 router.use('/users', userRoutes);
+router.use('/transactions', monetaryTransactionRoutes);
 
 // Health check route
 router.get('/health', (req, res) => {
